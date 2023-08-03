@@ -16,6 +16,7 @@ Clone este repositório em sua máquina local usando o seguinte comando:
   ```bash
   git clone git@github.com:Tayco110/Devops-learning.git
   cd Devops-learning
+  cd task-1
   ```
 
 ## Passo 2: Criar e executar o microserviço localmente
