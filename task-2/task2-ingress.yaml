@@ -1,1 +1,18 @@
-a
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: task2-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: meu-dominio.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: task2-service
+                port:
+                  number: 80
