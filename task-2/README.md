@@ -1,3 +1,4 @@
+
 # Kubernetes: Services
 
 ## Visão Geral
@@ -97,12 +98,62 @@ spec:
 
 Este exemplo cria um Serviço do tipo LoadBalancer que expõe o serviço externamente usando um balanceador de carga externo.
 
-## Conclusão
-
-Os Serviços Kubernetes oferecem uma maneira poderosa de abstrair a comunicação com conjuntos de pods em um cluster. Eles fornecem uma forma de acesso consistente e estável, independentemente da escala e localização dos pods subjacentes. Com o uso adequado de Serviços, você pode melhorar a confiabilidade, escalabilidade e gerenciamento de aplicativos em um ambiente Kubernetes.
-
 Para mais detalhes e exemplos, consulte a [documentação oficial dos Serviços Kubernetes](https://kubernetes.io/docs/concepts/services-networking/service/).
 
 ---
+# Kubernetes: Ingress
 
-Este README é uma tradução adaptada da página oficial [Kubernetes Services](https://kubernetes.io/docs/concepts/services-networking/service/). Certifique-se de consultar a documentação original para obter informações completas e atualizadas sobre Services Kubernetes.
+O Ingress é um recurso do Kubernetes que permite gerenciar o acesso externo aos serviços dentro de um cluster. Ele fornece regras de roteamento, redirecionamento e gerenciamento de tráfego para serviços em execução dentro do cluster.
+
+## Conceitos Básicos
+
+### O que é um Ingress?
+
+O Ingress é uma API Kubernetes que gerencia o acesso externo aos serviços por meio de regras de roteamento baseadas em HTTP ou HTTPS.
+
+### Controlador de Ingress
+
+Um controlador de Ingress (como o Nginx Ingress Controller) é responsável por implementar as regras definidas em objetos Ingress e garantir que o tráfego externo seja direcionado corretamente para os serviços apropriados dentro do cluster.
+
+### Regras e Rotas
+
+Um objeto Ingress contém uma lista de regras, cada uma das quais define um host e um caminho. Cada regra é associada a um ou mais backends, que são serviços Kubernetes que lidarão com o tráfego correspondente.
+
+## Implantação Básica
+
+1. Instale um controlador de Ingress no seu cluster (por exemplo, Nginx Ingress Controller).
+
+2. Crie um arquivo YAML para definir o objeto Ingress, especificando as regras de roteamento desejadas:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: meu-ingress
+spec:
+  rules:
+    - host: seu-domínio.com
+      http:
+        paths:
+          - path: /caminho
+            pathType: Prefix
+            backend:
+              service:
+                name: seu-service
+                port:
+                  number: 80
+```
+
+3. Aplique o manifesto Ingress ao cluster:
+
+```bash
+kubectl apply -f seu-arquivo-ingress.yaml
+```
+
+4. Configure o DNS para apontar o domínio para o endereço IP público do Ingress Controller.
+
+5. Acesse seu aplicativo usando o domínio configurado.
+
+## Disclaimer
+
+Este README é uma tradução adaptada da página oficial [Kubernetes Services](https://kubernetes.io/docs/concepts/services-networking/service/) e [Kubernetes Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/). Certifique-se de consultar a documentação original para obter informações completas e atualizadas sobre Services Kubernetes.
