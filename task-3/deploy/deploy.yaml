@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: task3-deployment
+  name: t3-deployment
   labels:
-    app: task3
+    app: t3
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: task3
+      app: t3
   template:
     metadata:
       labels:
-        app: task3
+        app: t3
     spec:
       containers:
-      - name: task3
-        image: murilotico/task33:task33
+      - name: t3
+        image: murilotico/secret:latest
         ports:
           - containerPort: 8000
         envFrom:
           - secretRef:
-              name: task3-secret
+              name: t3-secret
