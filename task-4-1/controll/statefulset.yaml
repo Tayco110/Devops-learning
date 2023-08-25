@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: task4-1-statefulset
+spec:
+  serviceName: "task4-1-service" # Nome do serviço associado ao StatefulSet
+  replicas: 3 # Número de réplicas (pods)
+  selector:
+    matchLabels:
+      app: task4-1 # Rótulo usado para selecionar os pods do StatefulSet
+  template:
+    metadata:
+      labels:
+        app: task4-1 # Rótulo do pod
+    spec:
+      containers:
+        - name: t41
+          image: murilotico/t41:v2 # Nome da imagem Docker
+          ports:
+            - containerPort: 7000 # Porta que o contêiner está ouvindo
+          envFrom:
+            - secretRef:
+                name: task4-1-secret # Nome do segredo que contém as variáveis de ambiente
+  volumeClaimTemplates:
+    - metadata:
+        name: data # Nome do volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ] # Modo de acesso do volume
+        storageClassName: standard # Classe de armazenamento
+        resources:
+          requests:
+            storage: 1Gi # Requisição de armazenamento por réplica

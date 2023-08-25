@@ -16,6 +16,6 @@ def read_root():
         key = "API Key not set"
 
     return {
-        "DATABASE_URL": app_pass,
-        "API_KEY": key
+        "PASS": app_pass,
+        "KEY": key
     }
