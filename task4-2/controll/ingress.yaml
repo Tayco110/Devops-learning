@@ -1,18 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: t4-1-ingress
+  name: t42-igs
+  namespace: task42
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: dominio.com
+    - host: dominio42.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: task4-1-service
+                name: t42-svc
                 port:
                   number: 80

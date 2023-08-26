@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: task4-1-statefulset
+  namespace: task41
 spec:
   serviceName: "task4-1-service" # Nome do serviço associado ao StatefulSet
   replicas: 3 # Número de réplicas (pods)

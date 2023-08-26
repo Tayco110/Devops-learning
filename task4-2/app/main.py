@@ -3,7 +3,7 @@ import os
 
 app = FastAPI()
 
-@app.get("/")
+@app.get("/daemon")
 def read_root():
     try:
         app_pass = os.environ["PASS"]
