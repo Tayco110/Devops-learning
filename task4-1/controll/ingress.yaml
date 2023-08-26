@@ -1,7 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: t4-1-ingress
+  name: t41-igs
+  namespace: task41
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
@@ -13,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: task4-1-service
+                name: t41-svc
                 port:
                   number: 80

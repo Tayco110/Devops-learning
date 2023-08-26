@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: task4-1-service
+  name: t41-svc
+  namespace: task41
 spec:
   selector:
-    app: task4-1 # Seleciona os pods do StatefulSet usando o rótulo 'app'
+    app: t41
   ports:
     - protocol: TCP
       port: 80 # Porta do serviço
