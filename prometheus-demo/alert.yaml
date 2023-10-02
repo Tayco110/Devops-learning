@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: demo-alert
+  namespace: prometheus-demo
+  labels:
+    resource: prometheus
+spec:
+  route:
+    groupBy: ["severity"]
+    groupWait: 30s
+    groupInterval: 1m
+    repeatInterval: 1m
+    receiver: discord
+  receivers:
+    - name: discord
+      discordConfigs:
+        - apiURL:
+            key: "discordWebhookURL"
+            name: "discord-secret"
+            optional: false

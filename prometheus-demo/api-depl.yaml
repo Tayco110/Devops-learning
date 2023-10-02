@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  namespace: prometheus-demo
+  labels:
+    app: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+  template:
+    metadata:
+      labels:
+        app: demo
+    spec:
+      containers:
+      - name: demo
+        image: murilotico/prometheus-demo
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+  namespace: prometheus-demo
+  labels:
+    job: node-api
+    app: demo
+spec:
+  type: ClusterIP
+  selector:
+    app: demo
+  ports:
+    - name: web
+      protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata: 
+  name: demo-service-monitor
+  namespace: prometheus-demo
+  labels:
+    release: prometheus
+    app: prometheus
+spec:
+  jobLabel: job
+  endpoints:
+    - interval: 30s
+      port: web
+      path: /metrics
+  selector:
+    matchLabels:
+      app: demo

@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    release: prometheus
+  name: demo-rules
+  namespace: prometheus-demo
+spec:
+  groups:
+    - name: demo
+      rules:
+        - alert: PodDownAlert
+          expr: up{job="node-api",namespace="prometheus-demo",container="demo"} == 1
+          for: 10s
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod {{ $labels.pod }} is down"
+            # description: "The pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is down for more than 3 minutes."
